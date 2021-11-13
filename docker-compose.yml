@@ -9,8 +9,9 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
+  
   web:
-    image: backend:0.1
+    image: adeiarias/as_project_backend:development
     command: bash -c "
       while !</dev/tcp/db/5432; do sleep 1; done;
       python manage.py makemigrations
@@ -28,3 +29,13 @@ services:
       - "8000:8000"
     depends_on:
       - db
+  
+  frontend:
+    image: adeiarias/as_project_frontend:development
+    volumes:
+      - ./frontend:/frontend_code
+    ports:
+      - "1080:1080"
+    depends_on:
+      - db
+      - web
