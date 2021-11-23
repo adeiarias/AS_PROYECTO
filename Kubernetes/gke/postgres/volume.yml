@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-pv
+spec:
+  storageClassName: "apps"
+  capacity:
+    storage: 8
+  accessModes:
+    - ReadWriteOnce
+  claimRef:
+    namespace: default
+    name: postgres-pvc
+  gcePersistentDisk:
+    pdName: gke-pv
+    fsType: ext4
