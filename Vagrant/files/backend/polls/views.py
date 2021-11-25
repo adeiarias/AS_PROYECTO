@@ -8,10 +8,3 @@ from .serializers import MessageSerializer
 class MessageSet(viewsets.ModelViewSet):
     queryset  = Data.objects.all()
     serializer_class = MessageSerializer
-
-
-def home(request):
-    context = {
-
-    }
-    return render(request, 'blog/index.html', context)
