@@ -6,7 +6,7 @@ spec:
   selector:
     app: django-container
   ports:
-  - protocol: TCP
+  - nodePort: 30163
     port: 8000
     targetPort: 8000
-  type: LoadBalancer
+  type: NodePort
