@@ -70,7 +70,6 @@ Vagrant.configure("2") do |config|
     apt install -y -qq postgresql
     sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'password';"
     pip3 install -r files/backend/requirements.txt
-    sleep 10
     python3 files/backend/manage.py makemigrations
     python3 files/backend/manage.py migrate
     python3 files/backend/manage.py runserver 0.0.0.0:8000

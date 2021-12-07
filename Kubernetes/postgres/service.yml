@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: postgres-service
+spec:
+  # Usaremos clusterIP porque no queremos que esta base de datos sea accesible desde el exterior
+  type: ClusterIP
+  selector:
+    app: postgres-container
+  ports:
+    # Especificar los puertos
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432

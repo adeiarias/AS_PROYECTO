@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  # Crearemos solamente una replica, no necesitamos más
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-container
+  template:
+    metadata:
+      labels:
+        app: postgres-container
+        tier: backend
+    spec:
+      # Especificaciones del deployment
+      containers:
+        - name: postgres-container
+          # Qué imagen usar para la base de datos
+          image: postgres:13
+          # Variables de entorno a usar para configurar la base de datos
+          env:
+            # El usuario y contraseña se consiguen mediante el archivo secrets.yml
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: user
+
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: password
+
+            - name: POSTGRES_DB
+              value: kubernetes_django
+          # Puerto por defecto de PostgreSQL
+          ports:
+            - containerPort: 5432
+          # Qué carpeta del volumen se usará para guardar la información
+          volumeMounts:
+            - name: postgres-volume-mount
+              mountPath: /var/lib/postgresql/data2
+      # Qué volumen se usará para guardar toda la información
+      volumes:
+        - name: postgres-volume-mount
+          persistentVolumeClaim:
+            claimName: postgres-pvc

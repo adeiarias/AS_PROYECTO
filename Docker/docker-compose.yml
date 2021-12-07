@@ -1,17 +1,26 @@
 version: "3.1"
    
 services:
+  # servicio de la base de datos PostgreSQL
   db:
     image: postgres:latest
+    # este bind mount se usará para guardar toda la información sobre la base de datos
+    # (bases de datos, tablas, etc)
     volumes:
       - ./db/data:/var/lib/postgresql/data
+    # datos sobre la base de datos (nombre de la base de datos, usuario y contraseña)
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
   
+  # servicio de la aplicación cliente (django)
   web:
-    image: adeiarias/as_project_backend:development
+    # imagen alojada en Dockerhub y que ha sido creada mediante el Dockerfile de esta carpeta
+    image: adeiarias/client_django_as:latest
+    # comandos para iniciar la aplicación
+    # la aplicación estará disponible en la siguiente url: http://{ip}:8000
+    # si estás en local, sustituir el apartado ip por 'localhost' o '127.0.0.1'
     command: bash -c "
       while !</dev/tcp/db/5432; do sleep 1; done;
       python manage.py makemigrations
@@ -19,22 +28,16 @@ services:
       && python manage.py runserver 0.0.0.0:8000
      "
     volumes:
-      - ./backend:/code
+      - ./app_cliente:/code
+    # datos sobre la base de datos PostgreSQL (host de la base de datos, usuario y contraseña)
+    # para que la conexión se realice sin problemas
     environment:
       - DB_HOST=db
       - DB_USER=postgres
       - DB_PASS=password
+    # puerto en el cual se ejecutará la aplicación web
     ports:
       - "8000:8000"
+    # con esto decimos que hay dependencia de entre la aplicación web y la base de datos
     depends_on:
       - db
-  
-  frontend:
-    image: adeiarias/as_project_frontend:development
-    volumes:
-      - ./frontend:/frontend_code
-    ports:
-      - "1080:1080"
-    depends_on:
-      - db
-      - web
