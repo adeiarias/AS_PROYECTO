@@ -24,7 +24,7 @@ Move into the Kubernetes directory
 These files are prepared to be executed in Google Kubernetes Engine.
 If you want to use Minikube to execute them, change both type and port in django/service.yml to NodePort and a number between 30000-32768.
 
-Besides all these files, another file called volume.yml is also provided. If you are using GKE (Google Kubernetes Engine or Minukube), it's not necessary to apply this file.
+Besides all these files, another file called volume.yml is also provided. If you are using GKE (Google Kubernetes Engine) or Minukube, it's not necessary to apply this file.
 ### Deply the app
 * Deploy the app
   ```sh
