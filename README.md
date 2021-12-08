@@ -28,12 +28,14 @@ Besides all these files, another file called volume.yml is also provided. If you
 ### Deply the app
 * Deploy the app
   ```sh
-  kubectl apply -f postgres/volume_claim.yml
-  kubectl apply -f postgres/secrets.yml
-  kubectl apply -f postgres/deployment.yml
-  kubectl apply -f postgres/service.yml
-  kubectl apply -f django/deployment.yml
-  kubectl apply -f django/service.yml
+  cd postgres
+  kubectl apply -f volume_claim.yml
+  kubectl apply -f secrets.yml
+  kubectl apply -f deployment.yml
+  kubectl apply -f service.yml
+  cd ../django
+  kubectl apply -f deployment.yml
+  kubectl apply -f service.yml
   ```
 The app will be available in:
 * Deployed in localhost: [http://localhost:8000](http://localhost:8000)
