@@ -42,7 +42,7 @@ spec:
           # Qué carpeta del volumen se usará para guardar la información
           volumeMounts:
             - name: postgres-volume-mount
-              mountPath: /var/lib/postgresql/data/postgres_data
+              mountPath: /var/lib/postgresql/pgdata
       # Qué volumen se usará para guardar toda la información
       volumes:
         - name: postgres-volume-mount
