@@ -2,9 +2,14 @@
 Three different ways to deploy the application
 ## DOCKER
 ### Prerequisites
-docker-compose package must be installed
+Install docker and docker-compose packages
+* Detached mode: Run containers in the background
   ```sh
   docker-compose up -d
+  ```
+* Run containers in the foreground
+  ```sh
+  docker-compose up
   ```
 ## KUBERNETES
 
