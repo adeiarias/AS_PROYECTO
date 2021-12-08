@@ -5,8 +5,10 @@ metadata:
 spec:
   selector:
     app: django-container
+  # Especificar los puertos
   ports:
   - protocol: TCP
     port: 8000
     targetPort: 8000
+  # Usaremos loadbalancer, porque queremos acceder desde el exterior
   type: LoadBalancer

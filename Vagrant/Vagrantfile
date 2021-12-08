@@ -65,11 +65,21 @@ Vagrant.configure("2") do |config|
   # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
+    # Update para actualizar el repositorio
     apt-get update
+    # Instalamos postgresql y python
     apt install -y -qq python3.8 python3-pip
     apt install -y -qq postgresql
+    # Esperar hasta que postgreSQL esté activo
+    while [ $(pgrep -u postgres -fa -- -D | wc -c) -eq 0 ]
+    do
+	sleep 1
+    done
+    # Crear un usuario en postgreSQL
     sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'password';"
+    # Instalar todas las dependencias de python necesarias
     pip3 install -r files/backend/requirements.txt
+    # Inicializar la aplicación de Django
     python3 files/backend/manage.py makemigrations
     python3 files/backend/manage.py migrate
     python3 files/backend/manage.py runserver 0.0.0.0:8000

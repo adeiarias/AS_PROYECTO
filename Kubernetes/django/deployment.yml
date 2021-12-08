@@ -5,6 +5,7 @@ metadata:
   labels:
     app: django
 spec:
+  # Crearemos solamente una replica, no necesitamos más
   replicas: 1
   selector:
     matchLabels:
@@ -14,16 +15,21 @@ spec:
       labels:
         app: django-container
     spec:
+      # Especificaciones del contenedor
       containers:
         - name: django
+          # Qué imagen usar para la base de datos
           image: adeiarias/client_django_as:latest
+          # Qué comando se ejecutarán al iniciar el contenedor
           command: ["/bin/sh", "-c"]
           args:
             - python manage.py makemigrations;
               python manage.py migrate;
               python manage.py runserver 0.0.0.0:8000;
+          # Especificar los puertos
           ports:
             - containerPort: 8000
+          # Especificar las variables de entorno
           env:
             - name: DB_USER
               valueFrom:
