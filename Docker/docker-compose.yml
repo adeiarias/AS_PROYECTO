@@ -22,10 +22,9 @@ services:
     # la aplicación estará disponible en la siguiente url: http://{ip}:8000
     # si estás en local, sustituir el apartado ip por 'localhost' o '127.0.0.1'
     command: bash -c "
-      while !</dev/tcp/db/5432; do sleep 1; done;
-      python manage.py makemigrations
-      && python manage.py migrate
-      && python manage.py runserver 0.0.0.0:8000
+      ./wait-for-it.sh db:5432 --timeout=300 -- python manage.py makemigrations;
+      python manage.py migrate;
+      python manage.py runserver 0.0.0.0:8000;
      "
     volumes:
       - ./app_cliente:/code

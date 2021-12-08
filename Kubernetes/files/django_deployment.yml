@@ -23,7 +23,7 @@ spec:
           # Qué comando se ejecutarán al iniciar el contenedor
           command: ["/bin/sh", "-c"]
           args:
-            - python manage.py makemigrations;
+            - ./wait-for-it.sh postgres-service:5432 --timeout=300 -- python manage.py makemigrations;
               python manage.py migrate;
               python manage.py runserver 0.0.0.0:8000;
           # Especificar los puertos
