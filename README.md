@@ -22,20 +22,13 @@ The app will be available in:
 Move into the Kubernetes directory
 ### Prerequisites
 These files are prepared to be executed in Google Kubernetes Engine.
-If you want to use Minikube to execute them, change both type and port in django/service.yml to NodePort and a number between 30000-32768.
+If you want to use Minikube to execute them, change both type and port in files/django_service.yml to NodePort and a number between 30000-32768.
 
 Besides all these files, another file called volume.yml is also provided. If you are using GKE (Google Kubernetes Engine) or Minukube, it's not necessary to apply this file.
 ### Deply the app
 * Deploy the app
   ```sh
-  cd postgres
-  kubectl apply -f volume_claim.yml
-  kubectl apply -f secrets.yml
-  kubectl apply -f deployment.yml
-  kubectl apply -f service.yml
-  cd ../django
-  kubectl apply -f deployment.yml
-  kubectl apply -f service.yml
+  kubectl apply -f files/
   ```
 The app will be available in:
 * Deployed in localhost: [http://localhost:8000](http://localhost:8000)
