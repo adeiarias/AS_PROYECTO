@@ -3,7 +3,7 @@ Three different ways to deploy the application
 ## DOCKER
 Move into the Docker directory
 ### Prerequisites
-Install docker and docker-compose packages
+Install both docker and docker-compose packages
 
 ### Deply the app
 * Detached mode: Run containers in the background
@@ -37,7 +37,7 @@ The app will be available in:
 ## VAGRANT
 Move into the Vagrant directory
 ### Prerequisites
-Install vagrant and virtualbox
+Install both vagrant and virtualbox
 
 ### Deply the app
 * Switch on the machine
